@@ -2,14 +2,36 @@
 <html>
 <head>
     <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>GSTV - Videos for Gas Station/title>
+
+    <link rel="stylesheet" href="semantic-ui/semantic.css" />
+    <link rel="stylesheet" href="gstv.css" />
+
+    <script src="jquery-2.1.4.min.js"></script>
+    <script src="semantic-ui/semantic.js"></script>
+    <script src="nuxeo.js"></script>
+    <script src="station.js"></script>
+	
+    <title>GSTV - Videos for Gas Station</title>
 
 </head>
 <body>
+	<div id="maindiv" class"ui segment" style="padding: 1em">
+		<div id="theHeader" class="ui center aligned segment">
+			<div class="ui huge header">Videos for Gas Station</div>
+		</div>
+		
+		<div id="searchStation" class="ui center aligned segment">
+			<div class="ui labeled icon input">
+				<div class="ui label">Station</div>
+				<input id="searchBox" type="text" placeholder="name" onchange="handleSearch();">
+				<i class="inverted circular search link icon"></i>
+			</div>
+		</div>
 
-Ah que coucou
+		<div id="stationDetails" class="ui center aligned segment">
 
+		</div>
+	</div>
 </body>
+
 </html>
