@@ -1,0 +1,21 @@
+<package type="addon" name="nuxeo-tree-bencher" version="@VERSION@">
+  <title>Nuxeo Merrill Tree Bencher</title>
+  <description>
+    <p>This addon activates the Merrill Tree Bencher addon.</p>
+  </description>
+  <home-page>https://github.com/tiry/TestRoom</home-page>
+  <vendor>Nuxeo</vendor>
+  <installer restart="true" />
+  <uninstaller restart="true" />
+  <hotreload-support>false</hotreload-support>
+  <require-terms-and-conditions-acceptance>false</require-terms-and-conditions-acceptance>
+  <nuxeo-validation>waiting_nuxeo_certified</nuxeo-validation>
+  <production-state>development</production-state>
+  <supported>false</supported>
+  <platforms>
+    <platform>cap-7.2</platform>
+    <platform>cap-7.3</platform>
+  </platforms>
+  <license>LGPL</license>
+  <license-url>http://www.gnu.org/licenses/lgpl.html</license-url>
+</package>
