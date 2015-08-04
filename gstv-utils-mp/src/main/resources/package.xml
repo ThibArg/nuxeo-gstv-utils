@@ -1,9 +1,9 @@
-<package type="addon" name="nuxeo-tree-bencher" version="@VERSION@">
-  <title>Nuxeo Merrill Tree Bencher</title>
+<package type="addon" name="nuxeo-gstv-utils" version="@VERSION@">
+  <title>Nuxeo GSTV Utils</title>
   <description>
-    <p>This addon activates the Merrill Tree Bencher addon.</p>
+    <p>This addon activates the Nuxeo GSTV Utils addon.</p>
   </description>
-  <home-page>https://github.com/tiry/TestRoom</home-page>
+  <home-page>https://github.com/ThibArg/nuxeo-gstv-utils</home-page>
   <vendor>Nuxeo</vendor>
   <installer restart="true" />
   <uninstaller restart="true" />
