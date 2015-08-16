@@ -70,14 +70,14 @@ function displayStationDetails(inJsonDoc) {
 		gStationId = inJsonDoc.uid
 
 		properties = inJsonDoc.properties;
-
+		
 		html += "Company: " + properties["gasstation:company_name"] + "<br/>";
 		html += properties["gasstation:address_street"] + ", ";
 		html += properties["gasstation:address_city"] + ", ";
 		html += properties["gasstation:address_state"] + ", ";
 		html += properties["gasstation:address_zip"];
 		html += "<p></p>"
-		html += "<b>Vendor(s)/Franchise(s): " + properties["gasstation:franchises_names"].join(", ");
+		//html += "<b>Vendor(s)/Franchise(s): " + properties["gasstation:franchises_names"].join(", ");
 		html += "<p></p>"
 		html += "<p><div><button class='ui button' onclick='getVideos();'>Get Videos</button></div></p>";
 	}
@@ -90,9 +90,27 @@ function getVideos() {
 		timeout : 10000
 	});
 	
+	// Actually (2015-08-04) no (see NXP-17646). The id is passed as a parameter, not as "input"
+	/*
 	nxClient.operation("GasStation_SearchVideos")
 		.headers({"X-NXProperties": "video_gstv, dublincore"})
 		.input(gStationId)
+		.execute(function(inError, inData) {
+		
+			if(inError) {
+				alert(inError);
+			} else {
+				
+				displayVideos(inData.entries);
+			}
+		
+		});
+	*/
+	nxClient.operation("javascript.GasStation_GetAvailableVideos")
+		.headers({"X-NXProperties": "video_gstv, dublincore", "Accept": "*/*", "Content-Type": "application/json"})
+	.params({
+			"gsId": gStationId
+		})
 		.execute(function(inError, inData) {
 		
 			if(inError) {
@@ -107,12 +125,12 @@ function getVideos() {
 
 	/* With jQuery:
 	automationParams = {
-		input: gStationId,
-		params : {},
+		//input: gStationId,
+		params : {gsId: gStationId},
 		context : {}
 	};
 	jQuery.ajax({
-		url : "/nuxeo/site/automation/GasStation_SearchVideos",
+		url : "/nuxeo/site/automation/javascript.GasStation_SearchVideos",
 		contentType : "application/json+nxrequest",
 		type : "POST",
 		data : JSON.stringify(automationParams)
@@ -135,7 +153,9 @@ function displayVideos(inJsonEntries) {
 	var mainDivObj = jQuery("#maindiv"),
 		videosObj = jQuery("#videos"),
 		html,
-		properties;
+		properties,
+		title,
+		pos;
 
 	if(videosObj != null && videosObj.length > 0) {
 		videosObj.remove();
@@ -149,13 +169,19 @@ function displayVideos(inJsonEntries) {
 	});
 	html += "</div>";
 	*/
+	
 	html = "<div id='videos' class='ui segments'>";
 	inJsonEntries.forEach(function(oneDoc) {
 		properties = oneDoc.properties;
-		html += "<div class='ui segment'><a href='/nuxeo/nxdoc/default/" + oneDoc.uid + "/view_documents'>" + properties["dc:title"] + "</a></div>";
+		title = properties["dc:title"];
+		pos = title.lastIndexOf('.');
+		if(pos > 0) {
+			title = title.substr(0, pos);
+		}
+		html += "<div class='ui segment'><a href='/nuxeo/nxdoc/default/" + oneDoc.uid + "/view_documents'>" + title + "</a></div>";
 	});
 	html += "</div>";
-
+	
 	mainDivObj.append(html);
 }
 
